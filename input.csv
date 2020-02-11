@@ -1,0 +1,5 @@
+user_email,date,value,currency,status
+"test@test,com",20.01.2019 23:11:12,57.5,USD,approved
+"test2@test,com",23.02.2019 03:06:00,11.22,USD,pending
+"test@test,com",02.01.2019 11:02:43,31.34,USD,approved
+"test3@test,com",11.02.2019 22:02:45,560,USD,rejected
