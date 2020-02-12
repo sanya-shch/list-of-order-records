@@ -17,7 +17,7 @@ const UploadFile = ({ selectedFile, loading, error, postSelectedFile, setSelecte
       <div className="input-group">
         <div className="custom-file">
           <input type="file" className="custom-file-input" id="inputGroupFile04"
-                 aria-describedby="inputGroupFileAddon04" onChange={onChangeInputFile} name="filedata"/>
+                 aria-describedby="inputGroupFileAddon04" onChange={onChangeInputFile} name="filedata" accept=".csv"/>
             <label className="custom-file-label" htmlFor="inputGroupFile04">{!selectedFile ? "Choose file" : selectedFile.name}</label>
         </div>
       </div>
