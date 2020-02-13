@@ -29,7 +29,7 @@ const UploadFile = ({ selectedFile, loading, error, postSelectedFile, setSelecte
             Loading...
           </button>
         ) : selectedFile === null ? (
-          <button type="button" className="btn btn-secondary btn-lg btn-block mt-3" disabled>Button</button>
+          <button type="button" className="btn btn-secondary btn-lg btn-block mt-3" disabled>Choose file</button>
         ) : (
           <button type="button" className="btn btn-primary btn-lg btn-block mt-3" onClick={onClickUploadFile}>Upload</button>
         )

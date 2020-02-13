@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const multer = require('multer');
 const Order = require('../models/Order');
+const fs = require('fs');
 
 const router = Router();
 
@@ -24,6 +25,8 @@ const validateDate = (date) => {
 const validateValue = (value) => isFinite(value*1) && value*1 > 0;
 const validateCurrency = (currency) => typeof currency === "string";
 const validateStatus = (status) => status === 'approved' ? true : status === 'pending' ? true : status === 'rejected';
+
+const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 router.post('/fileupload', multer({fileFilter: fileFilter}).single("filedata"), async (req, res) => {
   try {
@@ -79,13 +82,43 @@ router.get('/getorderslist', async (req, res) => {
   }
 });
 
-// router.get('/getreport', async (req, res) => {
-//   try {
-//     const links = await Link.find({ owner: req.user.userId });
-//     res.json(links);
-//   } catch (e) {
-//     res.status(500).json({ message: 'Something went wrong, try again' });
-//   }
-// });
+router.get('/getreport', async (req, res) => {
+  try {
+    const writeStream = fs.createWriteStream('report.csv');
+    writeStream.write(`user_email  |  date  | amount\n`);
+
+    const existing = await Order.find({ status: 'approved' });
+    if (existing) {
+      const arr = [];
+      let index;
+      existing.forEach((existingItem) => {
+        index = -1;
+        const obj = {user_email: existingItem['user_email'], date: monthName[existingItem['date'].getMonth()-1] + ' ' + existingItem['date'].getFullYear(), value: existingItem['value'], currency: existingItem['currency']};
+        for (let i = 0, len = arr.length; i < len; i++) {
+          if (arr[i]['user_email'] === obj.user_email && arr[i]['date'] === obj.date && arr[i]['currency'] === obj.currency) {
+            index = i
+          }
+        }
+
+        if (index !== -1) {
+          arr[index]['value'] = Math.round((arr[index]['value'] + obj.value) *100) / 100
+        } else {
+          arr.push(obj)
+        }
+      });
+
+      for (let i = 0, len = arr.length; i < len; i++) {
+        const { user_email, date, value } = arr[i];
+
+        writeStream.write(`${user_email}  |  ${date} | ${value}\n`);
+      }
+
+      return res.status(200).json({ message: 'Success' });
+    }
+    res.status(200).json({ message: 'No data' });
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong, try again' });
+  }
+});
 
 module.exports = router;

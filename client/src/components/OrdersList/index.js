@@ -72,7 +72,6 @@ const OrderList = ({ data: {orders, limit, page, total, pages, sortBy, loading, 
                 <th scope="col">Value</th>
                 <th scope="col">Currency</th>
                 <th scope="col">Status</th>
-                <th scope="col">actions</th>
               </tr>
               </thead>
               <tbody>
@@ -86,7 +85,6 @@ const OrderList = ({ data: {orders, limit, page, total, pages, sortBy, loading, 
                       <td>{item.value}</td>
                       <td>{item.currency}</td>
                       <td>{item.status}</td>
-                      <td>Edit Delete</td>
                     </tr>
                   )
                 })

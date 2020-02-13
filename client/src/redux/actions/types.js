@@ -7,3 +7,5 @@ export const GET_FILE_ERROR = 'GET_FILE_ERROR';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_SORT_BY = 'SET_SORT_BY';
 export const SET_LIMIT = 'SET_LIMIT';
+export const SET_REPORT_LOADING = 'SET_REPORT_LOADING';
+export const GET_REPORT_ERROR = 'GET_REPORT_ERROR';
