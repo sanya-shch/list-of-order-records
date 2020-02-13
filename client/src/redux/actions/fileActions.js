@@ -5,6 +5,7 @@ import {
   SET_FILE_LOADING,
   GET_FILE_ERROR
 } from './types';
+import {getOrdersList} from "./orderActions";
 
 export const setSelectedFile = ( file ) => {
   return {
@@ -13,8 +14,9 @@ export const setSelectedFile = ( file ) => {
   };
 };
 
-export const postSelectedFile = ( file ) => dispatch => {
-  setLoading();
+export const postSelectedFile = ( file ) => (dispatch, getState) => {
+  const { page, limit, sortBy } = getState().orders;
+  dispatch(setLoading());
 
   let formData = new FormData();
   formData.append('filedata', file);
@@ -28,10 +30,10 @@ export const postSelectedFile = ( file ) => dispatch => {
         }
       }
     )
+    .then(() => dispatch(getOrdersList({page, limit, sortBy})) )
     .then(() => {
       dispatch({
-        type: SET_SELECTED_FILE,
-        payload: null
+        type: SET_FILE_LOADING
       });
     })
     .catch(err => {

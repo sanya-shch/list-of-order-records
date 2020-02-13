@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const schema = new Schema({
   user_email: {
@@ -6,7 +7,7 @@ const schema = new Schema({
     required: true
   },
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   value: {
@@ -22,5 +23,7 @@ const schema = new Schema({
       required: true
   }
 });
+
+schema.plugin(mongoosePaginate);
 
 module.exports = model('Order', schema);

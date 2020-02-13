@@ -4,3 +4,6 @@ export const SET_ORDERS_LOADING = 'SET_ORDERS_LOADING';
 export const SET_FILE_LOADING = 'SET_FILE_LOADING';
 export const GET_ORDERS_ERROR = 'GET_ORDERS_ERROR';
 export const GET_FILE_ERROR = 'GET_FILE_ERROR';
+export const SET_PAGE = 'SET_PAGE';
+export const SET_SORT_BY = 'SET_SORT_BY';
+export const SET_LIMIT = 'SET_LIMIT';

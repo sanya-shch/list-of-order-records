@@ -15,12 +15,13 @@ export default (state = initialState, action) => {
     case SET_SELECTED_FILE:
       return {
         ...state,
-        selectedFile: action.payload
+        selectedFile: action.payload,
+        error: null
       };
     case SET_FILE_LOADING:
       return {
         ...state,
-        loading: true
+        loading: !state.loading
       };
     case GET_FILE_ERROR:
       return {

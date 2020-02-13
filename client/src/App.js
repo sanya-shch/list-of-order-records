@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import UploadFile from './components/UploadFile'
+import OrderList from "./components/OrdersList";
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <div className="container">
       <h1 className="mt-5">List of order records</h1>
       <UploadFile/>
+      <OrderList/>
     </div>
   );
 }

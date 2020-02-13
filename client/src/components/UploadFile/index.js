@@ -24,14 +24,14 @@ const UploadFile = ({ selectedFile, loading, error, postSelectedFile, setSelecte
 
       {
         loading ? (
-          <button className="btn btn-primary btn-lg btn-block mt-2" type="button" disabled>
+          <button className="btn btn-primary btn-lg btn-block mt-3" type="button" disabled>
             <span className="spinner-grow spinner-border-sm" role="status" aria-hidden="true"></span>
             Loading...
           </button>
         ) : selectedFile === null ? (
-          <button type="button" className="btn btn-secondary btn-lg btn-block mt-2" disabled>Button</button>
+          <button type="button" className="btn btn-secondary btn-lg btn-block mt-3" disabled>Button</button>
         ) : (
-          <button type="button" className="btn btn-primary btn-lg btn-block mt-2" onClick={onClickUploadFile}>Upload</button>
+          <button type="button" className="btn btn-primary btn-lg btn-block mt-3" onClick={onClickUploadFile}>Upload</button>
         )
       }
 
