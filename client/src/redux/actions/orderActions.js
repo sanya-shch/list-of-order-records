@@ -30,6 +30,45 @@ export const getOrdersList = ({ page, limit, sortBy }) => dispatch => {
     });
 };
 
+export const editOrder = ({id, email, date, value, currency, status}) => (dispatch, getState) => {
+  const { page, limit, sortBy } = getState().orders;
+  dispatch(setLoading());
+
+  axios
+    .put(`http://localhost:5000/editOrder/${id}`,
+      {email, date, value, currency, status},
+      {
+        headers: {'Content-Type': 'application/json'}
+      }
+    )
+    .then(() => dispatch(getOrdersList({page, limit, sortBy})) )
+    .catch(err => {
+      if (err.response && err.response) {
+        dispatch({
+          type: GET_ORDERS_ERROR,
+          payload: err.response.data.message
+        });
+      }
+    });
+};
+
+export const deleteOrder = ( id ) => (dispatch, getState) => {
+  const { page, limit, sortBy } = getState().orders;
+  dispatch(setLoading());
+
+  axios
+    .delete(`http://localhost:5000/deleteOrder/${id}`)
+    .then(() => dispatch(getOrdersList({page, limit, sortBy})) )
+    .catch(err => {
+      if (err.response && err.response) {
+        dispatch({
+          type: GET_ORDERS_ERROR,
+          payload: err.response.data.message
+        });
+      }
+    });
+};
+
 export const setLoading = () => {
   return {
     type: SET_ORDERS_LOADING

@@ -121,4 +121,45 @@ router.get('/getreport', async (req, res) => {
   }
 });
 
+router.put('/editOrder/:id', async (req, res) => {
+  try {
+    const { email, date, value, currency, status } = req.body;
+
+    const orderFields = {};
+    if (email) orderFields.email = email;
+    if (date) orderFields.date = new Date(date.year*1, date.month*1, date.day*1, date.hour*1, date.minute*1, date.second*1);
+    if (value) orderFields.value = value;
+    if (currency) orderFields.currency = currency;
+    if (status) orderFields.status = status;
+
+    let order = await Order.findById(req.params.id);
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { $set: orderFields },
+      { new: true }
+    );
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+router.delete('/deleteOrder/:id', async (req, res) => {
+  try {
+    let order = await Order.findById(req.params.id);
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    await Order.findByIdAndRemove(req.params.id);
+
+    res.status(200).json({ message: 'Order removed' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 module.exports = router;
